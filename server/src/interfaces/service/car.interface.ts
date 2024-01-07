@@ -21,4 +21,5 @@ export interface ICreateCarRes {
     sound: string;
     plate: string;
     userId: string;
+    media: Array<object>;
 }

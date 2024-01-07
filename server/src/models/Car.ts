@@ -14,6 +14,7 @@ const CarSchema = new Schema<ICarModel>({
   sound: { type: String, required: true },
   plate: { type: String, required: true, unique: true }, //? Polislerin arabayı yakalaması sıkıntı yaratabilir mi? //TODO plaka number türünde olabilir.
   userId: { type: Schema.Types.ObjectId, ref: "User" },
+  media: [{ type: Schema.Types.ObjectId, ref: "Media" }],
 });
 
 CarSchema.pre<ICarModel>(RegExp("validate"), function (next) {

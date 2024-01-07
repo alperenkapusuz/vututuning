@@ -1,12 +1,27 @@
 import { ICarModel } from "../interfaces/model/car.interface";
 import { ICreateCarReq, ICreateCarRes } from "../interfaces/service/car.interface";
 import Car from "../models/Car";
+import Media from "../models/Media";
 
 class CarService {
 
-    public async createCar(carData: ICreateCarReq): Promise<ICreateCarRes> {
+    public async createCar(carData: ICreateCarReq, files: Express.Multer.File[] ): Promise<ICreateCarRes> {
         //TODO böyle bir user var mı kontrol et
-        const createdCar: ICarModel = await Car.create(carData );
+                    
+        const mediaIds = [];
+        for (const file of files) {
+            const media = await Media.create({
+                filename: file.filename,
+                path: file.path,
+            });
+            mediaIds.push(media._id);
+        }
+
+        const createdCar: ICarModel = await Car.create({
+            ...carData,
+            media: mediaIds,
+        });        
+    
         const response: ICreateCarRes = {
             id: createdCar._id,
             userId: createdCar.userId.toString(),
@@ -18,7 +33,9 @@ class CarService {
             handling: createdCar.handling,
             sound: createdCar.sound,
             plate: createdCar.plate,
+            media: createdCar.media,
         }
+        
         return response;
     }
 
@@ -38,6 +55,7 @@ class CarService {
                 handling: car.handling,
                 sound: car.sound,
                 plate: car.plate,
+                media: car.media,
             }
         });
         return response;

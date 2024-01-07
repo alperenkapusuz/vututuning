@@ -10,4 +10,5 @@ export interface ICarModel {
     sound: string;
     plate: string;
     userId: object; //! Schema.Types.ObjectId gibi durumlarda object olarak tanımlamak gerekiyor
+    media: Array<object>;
 }
