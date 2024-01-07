@@ -1,6 +1,6 @@
 import React from "react";
+import AuthModal from "./components/AuthModal";
 import { ModeToggle } from "./components/ModeToggle";
-import { Button } from "@/components/ui/button";
 
 const Header = () => {
   return (
@@ -13,7 +13,7 @@ const Header = () => {
             </h1>
           </div>
           <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-            <Button size="lg">Kayıt Ol</Button>
+            <AuthModal />
             <ModeToggle />
           </div>
         </div>
