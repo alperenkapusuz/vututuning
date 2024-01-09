@@ -16,6 +16,7 @@ type Props = {
 };
 
 const CustomCard = (props: Props) => {
+  
   return (
     <Card key={props.car.id}>
       <CardHeader className="basis-1/2 p-3">
@@ -39,7 +40,7 @@ const CustomCard = (props: Props) => {
           </h4>
         </div>
         <div className="relative h-80 w-full ">
-          <Image objectFit="cover" src="http://localhost:3000/supra.jpeg" fill alt="supra" />
+          <Image objectFit="cover" src={`http://localhost:3005/${props.car.media[0].path.split('/')[1]}`} fill alt="supra" />
         </div>
         <div className="absolute bottom-0 px-2 py-5 w-full flex flex-row gap-5 bg-secondary/30 rounded-b-lg">
           <div className="basis-1/3 flex gap-2 flex-col">

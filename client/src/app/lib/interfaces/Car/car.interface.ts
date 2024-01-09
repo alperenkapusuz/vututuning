@@ -1,3 +1,5 @@
+import { IMediaReq } from "../Media/media.interface";
+
 export interface ICarReq {
     id: string;
     userId: string;
@@ -7,6 +9,6 @@ export interface ICarReq {
     acceleration: number;
     topSpeed: number;
     handling: number;
-    sound: string;
     plate: string;
+    media: Array<IMediaReq>;
 }
