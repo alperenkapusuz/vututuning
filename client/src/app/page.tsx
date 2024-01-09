@@ -14,8 +14,6 @@ async function getData() {
 const page = async () => {
   const data = await getData();
 
-  console.log('DATA: ',data?.data);
-
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 p-4">

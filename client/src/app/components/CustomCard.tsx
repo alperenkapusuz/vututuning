@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Card, CardHeader } from "@/app/components/ui/card";
 import { ICarReq } from "../lib/interfaces/Car/car.interface";
 import Link from "next/link";
-import Stats from "./Stats";
+import CustomProgress from "./CustomProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -61,21 +61,21 @@ const CustomCard = (props: Props) => {
 
           <div className="absolute bottom-0 py-2 w-full flex flex-row gap-2 bg-secondary/50 hover:bg-secondary/75 rounded-b-lg">
             <div className="basis-1/3 flex flex-col">
-              <Stats
+              <CustomProgress
                 statName="Acceleration"
                 value={props.car.acceleration}
                 maxValue={100}
               />
             </div>
             <div className="basis-1/3 flex flex-col">
-              <Stats
+              <CustomProgress
                 statName="Top Speed"
                 value={props.car.topSpeed}
                 maxValue={400}
               />
             </div>
             <div className="basis-1/3 flex flex-col">
-              <Stats
+              <CustomProgress
                 statName="Handling"
                 value={props.car.handling}
                 maxValue={10}

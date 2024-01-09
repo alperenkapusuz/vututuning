@@ -21,7 +21,6 @@ const AuthModal = () => {
           <DialogTitle>Giriş Yap</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-
         <DialogFooter>
           <Button type="submit">Giriş Yap</Button>
         </DialogFooter>
