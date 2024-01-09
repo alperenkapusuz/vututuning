@@ -30,7 +30,7 @@ export default function RootLayout(props: {
           enableSystem
           disableTransitionOnChange
         >
-          <header className="sticky top-0 border-b-4">
+          <header className="sticky top-0 border-b-4 bg-inherit">
             <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
               <div className="sm:flex sm:items-center sm:justify-between">
                 <div className="text-center sm:text-left">

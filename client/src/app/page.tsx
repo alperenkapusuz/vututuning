@@ -15,17 +15,12 @@ const page = async () => {
   const data = await getData();
 
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 p-4">
-      {data?.data?.map((car: ICarReq) => (
-        <Link
-          className="card"
-          key={car.id}
-          href={`/photos/${car?.media?.[0]?.path?.split("/")?.[1]}`}
-          passHref
-        >
-          <CustomCard car={car} />
-        </Link>
-      ))}
+    <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 p-4">
+        {data?.data?.map((car: ICarReq) => (
+          <CustomCard key={car.id} car={car} />
+        ))}
+      </div>
     </div>
   );
 };
