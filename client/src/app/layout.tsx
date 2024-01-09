@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout(props: {
   children: React.ReactNode;
-  auth: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -46,6 +46,8 @@ export default function RootLayout(props: {
             </div>
           </header>
           {props.children}
+          {props.modal}
+          <div id="modal-root" />
         </ThemeProvider>
       </body>
     </html>

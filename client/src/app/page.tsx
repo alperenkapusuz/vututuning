@@ -1,8 +1,7 @@
 import React from "react";
-
+import Link from "next/link";
 import { ICarReq } from "@/app/lib/interfaces/Car/car.interface";
 import CustomCard from "./components/CustomCard";
-
 
 async function getData() {
   const res = await fetch("http://localhost:3005/car/getAll");
@@ -17,8 +16,15 @@ const page = async () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 p-4">
-      {data.data.map((car: ICarReq) => (
-        <CustomCard key={car.id} car={car} />
+      {data?.data?.map((car: ICarReq) => (
+        <Link
+          className="card"
+          key={car.id}
+          href={`/photos/${car?.media?.[0]?.path?.split("/")?.[1]}`}
+          passHref
+        >
+          <CustomCard car={car} />
+        </Link>
       ))}
     </div>
   );
