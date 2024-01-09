@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/app/components/theme-provider";
 import AuthModal from "./components/AuthModal";
 import { ModeToggle } from "./components/ModeToggle";
+import 'react-circular-progressbar/dist/styles.css';
 
 const roboto = Roboto({
   weight: ["400", "700"],
