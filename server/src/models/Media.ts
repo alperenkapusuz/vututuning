@@ -1,16 +1,15 @@
 import mongoose from "mongoose";
+import { IMediaModel } from "../interfaces/model/media.interface";
 
 const Schema = mongoose.Schema;
 
-const MediaSchema = new Schema({
+const MediaSchema = new Schema<IMediaModel>({
   name: { type: String, required: true },
-  path: { type: String, required: true },
+  path: { type: String, required: true, unique: true },
   type: { type: String, required: true },
-  size: { type: Number, required: true },
   carId: { type: Schema.Types.ObjectId, ref: "Car" },
-  userId: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-const MediaModel = mongoose.model("Media", MediaSchema);
+const MediaModel = mongoose.model<IMediaModel>("Media", MediaSchema);
 
 export default MediaModel;

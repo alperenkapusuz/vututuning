@@ -9,8 +9,7 @@ class CarController {
     public createCar = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const carData: ICreateCarReq = req.body;
-            const files = req.files as Express.Multer.File[];
-            const createCarData = await this.CarService.createCar(carData, files);
+            const createCarData = await this.CarService.createCar(carData);
             res.status(201).json({ data: createCarData, message: 'car succesfully created' });
         } catch (error) {
             next(error);

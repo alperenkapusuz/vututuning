@@ -1,7 +1,6 @@
 import {Router} from 'express'
 import {Routes} from '../interfaces/routes.interface'
 import CarController from '../controllers/car.controller'
-import { upload } from '../middlewares/upload.middleware'
 
 class CarRoute implements Routes{
     public path = '/car'
@@ -13,7 +12,7 @@ class CarRoute implements Routes{
     }
 
     private initializeRoutes(){
-        this.router.post(`${this.path}/create`,upload.array("media",5) , this.carController.createCar)
+        this.router.post(`${this.path}/create`, this.carController.createCar)
         this.router.get(`${this.path}/getAll`, this.carController.getAllCars)
     }
 }
