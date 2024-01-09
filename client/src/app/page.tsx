@@ -1,10 +1,10 @@
 import React from "react";
-import Link from "next/link";
-import { ICarReq } from "@/app/lib/interfaces/Car/car.interface";
-import CustomCard from "./components/CustomCard";
+import { ICarReq } from "@/lib/interfaces/Car/car.interface";
+import CustomCard from "../components/CustomCard";
+import { END_POINTS } from "@/constants/end-points";
 
 async function getData() {
-  const res = await fetch("http://localhost:3005/car/getAll");
+  const res = await fetch(END_POINTS.CAR.GET_ALL);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

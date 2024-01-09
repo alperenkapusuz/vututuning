@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/app/components/theme-provider";
-import AuthModal from "./components/AuthModal";
-import { ModeToggle } from "./components/ModeToggle";
+import { ThemeProvider } from "@/components/theme-provider";
+import AuthModal from "../components/AuthModal";
+import { ModeToggle } from "../components/ModeToggle";
 import 'react-circular-progressbar/dist/styles.css';
 
 const roboto = Roboto({

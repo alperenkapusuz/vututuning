@@ -14,7 +14,7 @@ const authMiddleware =  (permissions: Array<string>): RequestHandler => {
                         const decoded = jwt.verify(Authorization, 'your-secret-key') as DataStoredInToken;
                         if(!isEmpty(permissions)){
                                 const userId = decoded.userId;
-                                const user = await User.findById(userId)
+                                const user = await User.findById(userId) 
                                 if(user){
                                         console.log("include", permissions.includes(user.role));
                                         if(!permissions.includes(user.role)){
