@@ -1,9 +1,11 @@
 import { ICarModel } from "../interfaces/model/car.interface";
+import { IMediaModel } from "../interfaces/model/media.interface";
 import {
   ICreateCarReq,
   ICreateCarRes,
 } from "../interfaces/service/car.interface";
 import Car from "../models/Car";
+import Media from "../models/Media";
 
 class CarService {
   // public async createCar(carData: ICreateCarReq, files: Express.Multer.File[] ): Promise<ICreateCarRes> {
@@ -60,21 +62,48 @@ class CarService {
   public async getAllCars(): Promise<Array<ICreateCarRes>> {
     //TODO search parametresi eklenmeli
     const cars: Array<ICarModel> = await Car.find().sort("-createdAt");
-    const response: Array<ICreateCarRes> = cars.map((car: ICarModel) => {
-      return {
-        id: car._id,
-        userId: car.userId.toString(),
-        name: car.name,
-        slug: car.slug,
-        visualRating: car.visualRating,
-        acceleration: car.acceleration,
-        topSpeed: car.topSpeed,
-        handling: car.handling,
-        plate: car.plate,
-      };
-    });
+
+    const response: Array<ICreateCarRes> = await Promise.all(
+      cars.map(async (car: ICarModel) => {
+        const media = Media.find({ carId: car._id });
+
+        return {
+          id: car._id,
+          userId: car.userId.toString(),
+          name: car.name,
+          slug: car.slug,
+          visualRating: car.visualRating,
+          acceleration: car.acceleration,
+          topSpeed: car.topSpeed,
+          handling: car.handling,
+          plate: car.plate,
+          media: await media,
+        };
+      })
+    );
+
     return response;
   }
 }
 
 export default CarService;
+
+/*
+const response: Array<ICreateCarRes> = await Promise.all(cars.map(async (car: ICarModel) => {
+  const media = Media.find({ carId: car._id });
+
+  return {
+    id: car._id,
+    userId: car.userId.toString(),
+    name: car.name,
+    slug: car.slug,
+    visualRating: car.visualRating,
+    acceleration: car.acceleration,
+    topSpeed: car.topSpeed,
+    handling: car.handling,
+    plate: car.plate,
+    media: await media,
+  };
+}));
+
+*/

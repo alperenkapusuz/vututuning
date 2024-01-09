@@ -18,5 +18,18 @@ export interface ICreateCarRes {
     topSpeed: number;
     handling: number;
     plate: string;
+    userId: string; 
+}
+
+export interface ICarRes {
+    id: object;
+    name: string;
+    slug: string;
+    visualRating: number;
+    acceleration: number;
+    topSpeed: number;
+    handling: number;
+    plate: string;
     userId: string;
+    media: Array<object>; 
 }
