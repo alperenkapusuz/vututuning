@@ -1,4 +1,4 @@
-import { IMediaReq } from "../Media/media.interface";
+import { IMediaReq } from "./media.interface";
 
 export interface ICarReq {
     id: string;

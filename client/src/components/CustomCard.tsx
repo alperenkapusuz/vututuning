@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Card, CardHeader } from "@/components/ui/card";
-import { ICarReq } from "../lib/interfaces/Car/car.interface";
+import { ICarReq } from "../interface/car.interface";
 import Link from "next/link";
 import CustomProgress from "./CustomProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

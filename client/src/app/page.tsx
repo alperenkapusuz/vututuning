@@ -1,5 +1,5 @@
 import React from "react";
-import { ICarReq } from "@/lib/interfaces/Car/car.interface";
+import { ICarReq } from "@/interface/car.interface";
 import CustomCard from "../components/CustomCard";
 import { END_POINTS } from "@/constants/end-points";
 
