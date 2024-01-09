@@ -15,8 +15,6 @@ const authMiddleware =  (permissions: Array<string>): RequestHandler => {
                         if(!isEmpty(permissions)){
                                 const userId = decoded.userId;
                                 const user = await User.findById(userId)
-                                console.log("user", user);
-                                console.log('permissions', permissions);
                                 if(user){
                                         console.log("include", permissions.includes(user.role));
                                         if(!permissions.includes(user.role)){
