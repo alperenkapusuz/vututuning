@@ -1,4 +1,5 @@
 import { ICarModel } from "../interfaces/model/car.interface";
+import { IPagination } from "../interfaces/pagination.interface";
 import {
   ICreateCarReq,
   ICreateCarRes,
@@ -9,6 +10,7 @@ import Media from "../models/Media";
 class CarService {
   public async createCar(carData: ICreateCarReq): Promise<ICreateCarRes> {
     //TODO böyle bir user var mı kontrol et
+
     const createdCar: ICarModel = await Car.create(carData);
     const response: ICreateCarRes = {
       id: createdCar._id,
@@ -24,11 +26,16 @@ class CarService {
     return response;
   }
 
-  public async getAllCars(): Promise<Array<ICreateCarRes>> {
+  public async getAllCars(
+    pagination: IPagination
+  ) {
     //TODO search parametresi eklenmeli
-    const cars: Array<ICarModel> = await Car.find().sort("-createdAt");
+    const cars: Array<ICarModel> = await Car.find()
+      .sort("-createdAt")
+      .limit(Number(pagination.limit))
+      .skip(Number(pagination.page) * Number(pagination.limit));
 
-    const response: Array<ICreateCarRes> = await Promise.all(
+    const carObject: Array<ICreateCarRes> = await Promise.all(
       cars.map(async (car: ICarModel) => {
         const media = Media.find({ carId: car._id });
 
@@ -46,6 +53,12 @@ class CarService {
         };
       })
     );
+
+    const response = {
+      data:[...carObject],
+      page: pagination.page,
+      limit: pagination.limit,
+    };
 
     return response;
   }

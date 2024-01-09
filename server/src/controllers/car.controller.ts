@@ -1,6 +1,7 @@
 import { NextFunction,Request,Response } from "express";
 import { ICreateCarReq } from "../interfaces/service/car.interface";
 import CarService from "../services/car.service";
+import { IPagination } from "../interfaces/pagination.interface";
 
 class CarController {
     public CarService = new CarService();
@@ -18,7 +19,10 @@ class CarController {
 
     public getAllCars = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const allCars = await this.CarService.getAllCars();
+            const page = req.query.page as string;
+            const limit = req.query.limit as string;
+            const pagination:IPagination = { page, limit };
+            const allCars = await this.CarService.getAllCars(pagination);
             res.status(200).json({ data: allCars, message: 'all cars succesfully fetched' });
         } catch (error) {
             next(error);
