@@ -17,6 +17,17 @@ class CarController {
         }
     }
 
+    public deleteCar = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const carId = req.params.carId;
+            const userId = req.params.userId;
+            await this.CarService.deleteCar(carId, userId); 
+            res.status(200).json({ message: 'car succesfully deleted' });
+        } catch (error) {
+            next(error);
+        }
+    }
+
     public getAllCars = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const page = req.query.page as string;

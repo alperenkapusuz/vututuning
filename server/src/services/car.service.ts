@@ -1,3 +1,5 @@
+import Errors from "../exceptions/Errors";
+import { HttpException } from "../exceptions/HttpException";
 import { ICarModel } from "../interfaces/model/car.interface";
 import { IPagination } from "../interfaces/pagination.interface";
 import {
@@ -6,8 +8,11 @@ import {
 } from "../interfaces/service/car.interface";
 import Car from "../models/Car";
 import Media from "../models/Media";
+import User from "../models/User";
 
 class CarService {
+
+
   public async createCar(carData: ICreateCarReq): Promise<ICreateCarRes> {
     //TODO böyle bir user var mı kontrol et
 
@@ -24,6 +29,24 @@ class CarService {
       plate: createdCar.plate,
     };
     return response;
+  }
+
+  public async deleteCar(carId: string, userId: string): Promise<boolean> {
+    //TODO Kullanıcı admin ise tüm arabaları silebilecek ama user ise sadece kendi arabalarını silebilecek
+    if(!userId || !carId) throw new HttpException(400 ,Errors.BadRequest);
+    const user = await User.findById(userId);
+    const car = await Car.findById(carId);
+    if(!user || !car) throw new HttpException(404, Errors.NotFound);
+    if(user.role === "admin" || car.userId.toString() === userId) {
+      await Car.findByIdAndDelete(carId);
+      return true;
+    }
+    throw new HttpException(403, Errors.PermissionDenied);
+  }
+
+  //TODO Car update
+  public async updateCar(): Promise<boolean> {
+    return true;
   }
 
   public async getAllCars(

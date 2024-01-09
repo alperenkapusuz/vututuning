@@ -8,6 +8,7 @@ const Errors = {
     EmailNotExist: { name: 'EmailExist', message: 'Email not exists' },
     PasswordNotMatch: { name: 'PasswordNotMatch', message: 'Password not match' },
     AuthTokenRequired: { name: 'AuthTokenRequired', message: 'Authentication token required' },
+    BadRequest: { name: 'BadRequest', message: 'Bad Request' },
 }
 
 export default Errors

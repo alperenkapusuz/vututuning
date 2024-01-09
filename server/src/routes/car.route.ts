@@ -14,7 +14,8 @@ class CarRoute implements Routes{
 
     private initializeRoutes(){
         this.router.post(`${this.path}/create`, authMiddleware(["admin"]), this.carController.createCar)
-        this.router.get(`${this.path}/getAll`, authMiddleware(["user","admin"]), this.carController.getAllCars)
+        this.router.get(`${this.path}/getAll`, this.carController.getAllCars)
+        this.router.delete(`${this.path}/delete/:carId/:userId`, authMiddleware(["admin","user"]), this.carController.deleteCar)
     }
 }
 
