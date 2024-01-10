@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 
-import { ModeToggle } from "../components/ModeToggle";
 import "react-circular-progressbar/dist/styles.css";
-import AuthLogin from "@/containers/auth/AuthLogin";
 import Providers from "@/lib/providers";
-import AuthRegister from "@/containers/auth/AuthRegister";
+import Header from "@/layout/Header";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -29,32 +26,10 @@ export default function RootLayout(props: {
     <html lang="en">
       <body className={roboto.className}>
         <Providers>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <header className="sticky top-0 border-b-4 bg-inherit z-20">
-              <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-                <div className="sm:flex sm:items-center sm:justify-between">
-                  <div className="text-center sm:text-left">
-                    <h1 className="text-2xl font-bold text-primary sm:text-3xl">
-                      VUTUTUNING
-                    </h1>
-                  </div>
-                  <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-                    <AuthLogin />
-                    <AuthRegister />
-                    <ModeToggle />
-                  </div>
-                </div>
-              </div>
-            </header>
-            {props.children}
-            {props.modal}
-            <div id="modal-root" />
-          </ThemeProvider>
+          <Header />
+          {props.children}
+          {props.modal}
+          <div id="modal-root" />
         </Providers>
       </body>
     </html>

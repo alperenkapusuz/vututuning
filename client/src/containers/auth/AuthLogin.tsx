@@ -5,15 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import * as z from "zod";
 import { loginUserFn } from "@/api/authQueryFns";
-import cookie from "js-cookie";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -23,7 +14,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { createToken } from "@/lib/actions";
+import { useRouter } from 'next/navigation'
+
 
 export const formSchema = z.object({
   email: z
@@ -36,7 +30,7 @@ export const formSchema = z.object({
 });
 
 const AuthLogin = () => {
-  const closeRef = useRef(null);
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,18 +42,11 @@ const AuthLogin = () => {
 
   const { mutate: loginUser } = useMutation({
     mutationFn: loginUserFn,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (!data.data.data?.token) return;
-      cookie.set("token", data.data.data.token, {
-        expires: 1,
-        sameSite: "none",
-        secure: true,
-      });
-      // handleOpen(false);
-      if(!closeRef.current) return;
-      //@ts-ignore
-      closeRef.current.click();
+      await createToken(data.data.data.token)
       form.reset();
+      router.push('/')
     },
   });
 
@@ -68,15 +55,11 @@ const AuthLogin = () => {
   }
 
   return (
-    <Dialog>
-      <DialogClose ref={closeRef} className="overflow-hidden"/>
-      <DialogTrigger asChild>
-        <Button>Giriş Yap</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Giriş Yap</DialogTitle>
-        </DialogHeader>
+    <Card className="border border-primary bg-inherit">
+      <CardHeader>
+        <CardTitle>Giriş Yap</CardTitle>
+      </CardHeader>
+      <CardContent>
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
@@ -114,8 +97,8 @@ const AuthLogin = () => {
             </Button>
           </form>
         </FormProvider>
-      </DialogContent>
-    </Dialog>
+      </CardContent>
+    </Card>
   );
 };
 

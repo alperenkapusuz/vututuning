@@ -1,13 +1,5 @@
 "use client";
 import React, { useRef } from "react";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -22,7 +14,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import { loginUserFn, registerUserFn } from "@/api/authQueryFns";
-import cookie from "js-cookie";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { createToken } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 export const formSchema = z
   .object({
@@ -47,6 +41,7 @@ export const formSchema = z
 
 const AuthRegister = () => {
   const closeRef = useRef(null);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,27 +55,20 @@ const AuthRegister = () => {
 
   const { mutate: loginUser } = useMutation({
     mutationFn: loginUserFn,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (!data.data.data?.token) return;
-      cookie.set("token", data.data.data.token, {
-        expires: 1,
-        sameSite: "none",
-        secure: true,
-      });
-      // handleOpen(false);
-      if(!closeRef.current) return;
-      //@ts-ignore
-      closeRef.current.click();
+      await createToken(data.data.data.token)
       form.reset();
+      router.push('/')
     },
   });
 
   const { mutate: registerUser } = useMutation({
     mutationFn: registerUserFn,
     onSuccess: () => {
-        const email = form.watch("email");
-        const password = form.watch("password");
-        loginUser({ email, password });
+      const email = form.watch("email");
+      const password = form.watch("password");
+      loginUser({ email, password });
     },
   });
 
@@ -95,17 +83,11 @@ const AuthRegister = () => {
   }
 
   return (
-    <Dialog>
-      <DialogClose ref={closeRef} className="overflow-hidden" />
-      <DialogTrigger asChild>
-        <Button variant={"outline"} className="border border-primary">
-          Kayıt Ol
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Üye Ol</DialogTitle>
-        </DialogHeader>
+    <Card className="border border-primary bg-inherit">
+      <CardHeader>
+        <CardTitle>Üye Ol</CardTitle>
+      </CardHeader>
+      <CardContent>
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -173,8 +155,8 @@ const AuthRegister = () => {
             </Button>
           </form>
         </FormProvider>
-      </DialogContent>
-    </Dialog>
+      </CardContent>
+    </Card>
   );
 };
 

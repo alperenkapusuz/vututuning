@@ -8,6 +8,7 @@ export const END_POINTS = {
     AUTH: {
         LOGIN: `${VUTUTUNING_AUTH_CONTROLLER}/login`,
         REGISTER: `${VUTUTUNING_AUTH_CONTROLLER}/register`,
+        LOGOUT: `${VUTUTUNING_AUTH_CONTROLLER}/logout`,
     },
     CAR: {
         CREATE: `${VUTUTUNING_CAR_CONTROLLER}/create`,
