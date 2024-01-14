@@ -46,15 +46,11 @@ const CustomAudio = (props: Props) => {
   };
 
   return (
-    <Button
-      variant={"ghost"}
-      className="w-1 rounded-full"
-      onClick={handleButtonClick}
-    >
+    <Button variant={"ghost"} size={"icon"} onClick={handleButtonClick}>
       {playing ? (
-        <FontAwesomeIcon icon={faVolumeHigh} className="w-10 text-primary" />
+        <FontAwesomeIcon icon={faVolumeHigh} className="text-primary" />
       ) : (
-        <FontAwesomeIcon icon={faVolumeOff} className="w-10 text-primary" />
+        <FontAwesomeIcon icon={faVolumeOff} className="text-primary" />
       )}
     </Button>
   );

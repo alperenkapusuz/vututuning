@@ -16,23 +16,36 @@ const CustomCard = (props: Props) => {
   return (
     <Card key={props.car.id}>
       <CardHeader className="p-1">
-        <div className="flex flex-row justify-between align-middle border rounded-md p-2 bg-secondary">
-          <div className="relative h-12 w-12 ">
+        <div className="grid grid-cols-4 p-1 gap-1 border rounded-md bg-secondary">
+          <div>
             <div>logo</div>
           </div>
-          <div className="">
-            <h3 className="scroll-m-20 text-l tracking-tight first:mt-0">
-              {props.car.name}
-            </h3>
-            <h4 className="scroll-m-20 text-sm tracking-tight">
-              {props.car.plate}
-            </h4>
-          </div>
+          {props.car.media.some((media) => media.type.includes("audio")) ? (
+            <div className="col-span-2">
+              <p className="scroll-m-20 text-sm tracking-tight first:mt-0 truncate">
+                {props.car.name}
+              </p>
+              <p className="scroll-m-20 text-sm tracking-tight">
+                {props.car.plate}
+              </p>
+            </div>
+          ) : (
+            <div className="col-span-3">
+              <p className="scroll-m-20 text-sm tracking-tight first:mt-0 truncate">
+                {props.car.name}
+              </p>
+              <p className="scroll-m-20 text-sm tracking-tight">
+                {props.car.plate}
+              </p>
+            </div>
+          )}
           {props.car.media.map((media, index: number) => {
-            if(media.type.includes("audio")){
-              return <CustomAudio key={index} media={media} />;
-            }else{
-              return <div key={index}></div>;
+            if (media.type.includes("audio")) {
+              return (
+                <div key={index} className="flex justify-end">
+                  <CustomAudio media={media} />
+                </div>
+              );
             }
           })}
         </div>
