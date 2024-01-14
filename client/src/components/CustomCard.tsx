@@ -5,7 +5,8 @@ import { ICarReq } from "../interface/car.interface";
 import Link from "next/link";
 import CustomProgress from "./CustomProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+import CustomAudio from "./CustomAudio";
 
 type Props = {
   car: ICarReq;
@@ -27,7 +28,13 @@ const CustomCard = (props: Props) => {
               {props.car.plate}
             </h4>
           </div>
-          <div className="">sound</div>
+          {props.car.media.map((media, index: number) => {
+            if(media.type.includes("audio")){
+              return <CustomAudio key={index} media={media} />;
+            }else{
+              return <div key={index}></div>;
+            }
+          })}
         </div>
       </CardHeader>
       <Link
@@ -44,9 +51,7 @@ const CustomCard = (props: Props) => {
               </p>
               <div className="pr-2 flex flex-row justify-end gap-1 align-middle">
                 <FontAwesomeIcon icon={faStar} className="w-4 text-primary" />
-                <p className="text-xl text-primary">
-                  {props.car.visualRating}
-                </p>
+                <p className="text-xl text-primary">{props.car.visualRating}</p>
               </div>
             </div>
             <Image

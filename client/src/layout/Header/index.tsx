@@ -10,10 +10,9 @@ const Header = () => {
 
   const { value: token } = cookieStore.get('token') ?? { value: null };
 
-
   return (
-    <header className="absolute w-full top-0 border-b-4 bg-inherit z-20">
-      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-2 lg:px-8">
+    <header className="sticky w-full top-0 border-b-4 bg-inherit z-20">
+      <div className="mx-auto max-w-screen-xl px-4 py-2 sm:px-6 sm:py-2 lg:px-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="text-center sm:text-left">
             <Link href="/">
