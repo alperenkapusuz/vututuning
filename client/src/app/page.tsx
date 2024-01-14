@@ -1,7 +1,7 @@
 import React from "react";
 import { ICarReq } from "@/interface/car.interface";
-import CustomCard from "../components/CustomCard";
 import { END_POINTS } from "@/constants/end-points";
+import CustomCard from "@/components/CustomCard";
 
 async function getData() {
   const res = await fetch(END_POINTS.CAR.GET_ALL);

@@ -5,7 +5,7 @@ import { ICarReq } from "../interface/car.interface";
 import Link from "next/link";
 import CustomProgress from "./CustomProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import CustomAudio from "./CustomAudio";
 
 type Props = {
@@ -68,12 +68,14 @@ const CustomCard = (props: Props) => {
               </div>
             </div>
             <Image
-              objectFit="cover"
-              src={`http://localhost:3005/${
-                props.car.media[0].path.split("/")[1]
-              }`}
+              
+              src={`http://localhost:3005/${props.car.media[0].path.split("/")[1]}`}
               fill
-              alt="supra"
+              alt="car"
+              style={{
+                objectFit: 'cover',
+              }}
+              sizes="(max-width: 600px) 100vw, (min-width: 601px) and (max-width: 1024px) 33.3vw, (min-width: 1025px) 25vw"
             />
           </div>
 
