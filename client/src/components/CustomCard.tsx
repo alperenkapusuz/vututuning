@@ -67,16 +67,19 @@ const CustomCard = (props: Props) => {
                 <p className="text-xl text-primary">{props.car.visualRating}</p>
               </div>
             </div>
-            <Image
-              
-              src={`http://localhost:3005/${props.car.media[0].path.split("/")[1]}`}
-              fill
-              alt="car"
-              style={{
-                objectFit: 'cover',
-              }}
-              sizes="(max-width: 600px) 100vw, (min-width: 601px) and (max-width: 1024px) 33.3vw, (min-width: 1025px) 25vw"
-            />
+            {props.car.media.some((media) => media.type.includes("image")) ? (
+              <Image
+                src={`http://localhost:3005/${
+                  props.car.media[0].path.split("/")[1]
+                }`}
+                fill
+                alt="car"
+                style={{
+                  objectFit: "cover",
+                }}
+                sizes="(max-width: 600px) 100vw, (min-width: 601px) and (max-width: 1024px) 33.3vw, (min-width: 1025px) 25vw"
+              />
+            ) : null}
           </div>
 
           <div className="absolute bottom-0 py-2 w-full flex flex-row gap-2 bg-secondary/50 hover:bg-secondary/75 rounded-b-lg">

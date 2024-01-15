@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 import { getToken } from "@/lib/server-action-token";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { Button } from "@/components/ui/button";
+import { getClientToken } from "@/lib/client-action-token";
 
 interface JwtPayloadWithUserId extends JwtPayload {
   userId: string;
@@ -64,12 +65,17 @@ const CarCreate = () => {
   const { mutate: createCar } = useMutation({
     mutationFn: createCarFn,
     onSuccess: async (data) => {
-      console.log("data");
+      console.log("data: ", data);
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const token = getClientToken();
+    const decodedToken = jwtDecode<JwtPayloadWithUserId>(token as string);
+    const userId = decodedToken.userId;
+    createCar({ ...values, userId });
+    form.reset();
+    router.push("/");
   };
 
   return (
