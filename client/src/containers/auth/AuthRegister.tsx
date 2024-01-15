@@ -15,8 +15,9 @@ import { Input } from "@/components/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import { loginUserFn, registerUserFn } from "@/api/authQueryFns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { createToken } from "@/lib/actions";
+import { createToken } from "@/lib/server-action-token";
 import { useRouter } from "next/navigation";
+import { setClientToken } from "@/lib/client-action-token";
 
 export const formSchema = z
   .object({
@@ -58,6 +59,7 @@ const AuthRegister = () => {
     onSuccess: async (data) => {
       if (!data.data.data?.token) return;
       await createToken(data.data.data.token)
+      setClientToken(data.data.data.token)
       form.reset();
       router.push('/')
     },

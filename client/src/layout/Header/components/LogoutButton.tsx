@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { deleteToken } from "@/lib/actions";
+import { deleteToken } from "@/lib/server-action-token";
 import { useRouter } from "next/navigation";
 
 const CustomLogout = () => {

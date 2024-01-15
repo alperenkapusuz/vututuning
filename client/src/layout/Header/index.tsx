@@ -8,7 +8,7 @@ import LogoutButton from "./components/LogoutButton";
 const Header = () => {
   const cookieStore = cookies();
 
-  const { value: token } = cookieStore.get('token') ?? { value: null };
+  const { value: token } = cookieStore.get("token") ?? { value: null };
 
   return (
     <header className="sticky w-full top-0 border-b-4 bg-inherit z-20">
@@ -23,7 +23,18 @@ const Header = () => {
           </div>
           <div className="mt-4 flex flex-col gap-2 sm:mt-0 sm:flex-row sm:items-center">
             {token ? (
-              <LogoutButton />
+              <>
+                <Link href="/create-car">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border border-primary"
+                  >
+                    Create Car
+                  </Button>
+                </Link>
+                <LogoutButton />
+              </>
             ) : (
               <>
                 <Link href="/login">

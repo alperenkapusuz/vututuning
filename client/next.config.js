@@ -7,6 +7,9 @@ const nextConfig = {
     API_URL: process.env.API_URL,
     ENV_VALUE: process.env.ENV_VALUE,
   },
+  experimental: {
+    serverActions: true,
+  }
 };
 
 module.exports = nextConfig;

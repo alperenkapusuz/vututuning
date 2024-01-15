@@ -9,3 +9,7 @@ export async function createToken(data: string) {
 export async function deleteToken() {
   cookies().delete("token");
 }
+
+export async function getToken() {
+  return cookies().get("token");
+}

@@ -1,5 +1,6 @@
 // GELEN GUNCELLEMELER İLE DEGİSİKLİK GÖSTEREBİLİR
 import { API_URL } from "@/config/env";
+import { getClientToken } from "@/lib/client-action-token";
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -26,7 +27,7 @@ const injectToken = (
   config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
   try {
-    const token = Cookies.get("authToken");
+    const token = getClientToken();
     if (token != undefined && token != null) {
       config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${token}`;
